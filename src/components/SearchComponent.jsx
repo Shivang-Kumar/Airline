@@ -1,13 +1,13 @@
 import React,{useState} from "react";
-import Select from '../components/Select';
-import Input from '../components/Input';
-import Button from '../components/Button';
+import Select from './Select';
+import Input from './Input';
+import Button from './Button';
 
-const Search=({onSearch})=>{
+const Search=({onSearch , origin , destination , dateOfTravel  })=>{
 
-    const [from , setFrom]=useState("");
-    const [to,setTo]=useState("");
-    const [date,setDate]=useState("");
+    const [from , setFrom]=useState(origin || "");
+    const [to,setTo]=useState(destination || "");
+    const [date,setDate]=useState(dateOfTravel || "");
 
 
     const locations=["Dehli","Bangalore","Mumbai","Kolkata","Chennai","Locations"];
