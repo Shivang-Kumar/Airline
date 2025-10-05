@@ -1,11 +1,15 @@
 import {useState,useEffect} from 'react';
-import {getFlightsByDate,getPassengersByDate,getRevenueByDate} from '../services/dashboardService';
+import {getFlightsByDate,getPassengersByDate,getRevenueByDate,getSummaryByDate} from '../services/dashboardService';
+import Table from '../components/Table';
 
 import Card from '../components/Card';
 
 
 const Dashboard = () => {
 
+
+    const headings=["Flight_ID","Carrier Name","Source","Destination", "Total Passengers","Status"];
+    const [tableData,setTableData]=useState([]);
     const dateInput = "2025-09-29"; // value from input
     const date = { date: `${dateInput}T00:00:00` };
      
@@ -77,6 +81,17 @@ const Dashboard = () => {
           { heading: "Today's Revenue", data: `₹ ${todayRevenue}` },
         ]);
 
+
+
+        try{
+            let response=await getSummaryByDate();
+          setTableData(response.data);
+            }
+        catch(error)
+        {
+            console.log(error);
+        }
+
     
 }
 
@@ -86,14 +101,27 @@ fetchData();
 
 
 
-    return <>
-    <div>
-            <h1>Here is our dashboard</h1>
-            {cardData.map((card,index)=>{
-            return   <Card key={index} heading={card.heading} data={card.data}/>
-    })}
-
+   return (
+  <div>
+    {/* Card container */}
+    <div style={{
+      display: 'flex',
+       justifyContent: 'space-evenly',
+      flexWrap: 'wrap',
+      gap: '20px',
+      marginBottom: '30px'
+    }}>
+      {cardData.map((card, index) => (
+        <div key={index}>
+          <Card heading={card.heading} data={card.data} />
+        </div>
+      ))}
     </div>
-    </>
+
+    {/* Table */}
+    <Table headings={headings} data={tableData} label="Todays Summary"/>
+  </div>
+);
+
 }
 export default Dashboard;

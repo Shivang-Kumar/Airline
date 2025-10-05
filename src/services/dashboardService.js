@@ -47,3 +47,17 @@ export async function getRevenueByDate(date)
     const data= await response.json();
     return data;
 }
+
+export async function getSummaryByDate(date)
+{
+    const response=await fetch(`${API_BASE}/public/flightSchdule/summary/2025-09-29T15:30:00`,{
+        method:"GET",
+        headers:{
+            Accept:"application/json"
+        }
+        
+    });
+     const data=response.json();
+    return data;
+   
+}

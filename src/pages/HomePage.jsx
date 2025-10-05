@@ -1,9 +1,12 @@
 import {useState} from 'react';
-import SideBar from '../components/SideBar';
+import Navbar from '../components/Navbar';
 import Dashboard from '../components/DashBoard';
-import FlightManagement from '../components/FlightManagement';
 import BookingManagement from '../components/BookingManagement';
+import AddCarrier from '../components/Carrier/AddCarrier';
+import ViewAllCarrier from '../components/Carrier/ViewAllCarrier';
 import Header from '../components/Header';
+import AddFlight from '../components/Flight/AddFlight';
+import ViewAllFlight from '../components/Flight/ViewAllFlight';
 
 
 const HomePage=()=>{
@@ -18,7 +21,10 @@ function renderComponent(){
     switch(selectedComponent)
     {
             case 'dashboard': return <Dashboard/>
-            case 'flightManagement': return <FlightManagement/>
+            case 'addCarrier': return <AddCarrier/>
+            case 'viewCarrier':return <ViewAllCarrier/>
+            case 'addFlight':return <AddFlight/>
+            case 'viewFlight':return <ViewAllFlight/>
             case 'bookingManagement': return <BookingManagement/>
             default: return <Dashboard/>
     }
@@ -28,7 +34,7 @@ function renderComponent(){
 
     return (<>
     <Header/>
-    <SideBar role={role} onSelect={setSelectedComponent}/>
+    <Navbar role={role} onSelect={setSelectedComponent}/>
     <div>{renderComponent()}</div>
     </> 
     );
